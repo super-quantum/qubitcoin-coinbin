@@ -17,10 +17,7 @@
 	coinjs.bech32 = {'charset':'qpzry9x8gf2tvdw0s3jn54khce6mua7l', 'version':0, 'hrp':'bc'};
 
 	coinjs.compressed = false;
-
-	/* other vars */
-	coinjs.developer = '33tht1bKDgZVxb39MnZsWa8oxHXHvUYE4G'; //bitcoin
-
+	
 	/* api vars */
 	coinjs.hostname	= 'explorer-api.superquantum.io';
 	coinjs.host = ('https:'==document.location.protocol?'https://':'https://')+coinjs.hostname+'/';
