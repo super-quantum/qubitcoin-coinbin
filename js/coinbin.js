@@ -201,10 +201,13 @@ $(document).ready(function() {
 				// and finally broadcast!
 
 				tx2.broadcast(function(data){
-					if($(data).find("result").text()=="1"){
-						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="https://coinb.in/tx/'+$(data).find("txid").text()+'" target="_blank">'+$(data).find("txid").text()+'</a>');
+					if(typeof data === 'string' && data.length === 64){
+						// Success - data is the txid
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-success').html('txid: <a href="'+explorer_tx+data+'" target="_blank">'+data+'</a>');
 					} else {
-						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html(unescape($(data).find("response").text()).replace(/\+/g,' '));
+						// Error - display the error message
+						var errorMsg = typeof data === 'string' ? data : (data.error || 'Unknown error');
+						$("#walletSendConfirmStatus").removeClass('hidden').addClass('alert-danger').html(errorMsg);
 						$("#walletSendFailTransaction").removeClass('hidden');
 						$("#walletSendFailTransaction textarea").val(signed);
 						thisbtn.attr('disabled',false);
@@ -305,8 +308,8 @@ $(document).ready(function() {
 			var tx = coinjs.transaction();
 			$("#walletLoader").removeClass("hidden");
 			coinjs.addressBalance($("#walletAddress").html(),function(data){
-				if($(data).find("result").text()==1){
-					var v = $(data).find("balance").text()/100000000;
+				if(data && data.chain_stats && data.mempool_stats){
+					var v = ((data.chain_stats.funded_txo_sum || 0) + (data.mempool_stats.funded_txo_sum || 0) - (data.chain_stats.spent_txo_sum || 0) - (data.mempool_stats.spent_txo_sum || 0)) / 100000000;
 					$("#walletBalance").html(v+" BTC").attr('rel',v).fadeOut().fadeIn();
 				} else {
 				$("#walletBalance").html("0.00 BTC").attr('rel',v).fadeOut().fadeIn();
@@ -739,7 +742,8 @@ $(document).ready(function() {
 
 		var tx = coinjs.transaction();
 		tx.listUnspent($("#walletAddress").html(), function(data){
-			var inputs = $(data).find("unspent").children().length;
+			console.log(data);
+			var inputs = Array.isArray(data) ? data.length : 0;
 			if($("#walletSegwit").is(":checked")){	
 				$("#fees .txi_segwit").val(inputs);
 				$("#fees .txi_segwit").trigger('input');
@@ -1078,12 +1082,12 @@ $(document).ready(function() {
 
 				$("#redeemFromAddress").removeClass('hidden').html('<span class="glyphicon glyphicon-info-sign"></span> Attempted to rebuild transaction id <a href="'+explorer_tx+redeem.addr+'" target="_blank">'+redeem.addr+'</a>');
 
-				$.each($(data).find("inputs").children(), function(i,o){
-					var tx = $(o).find("txid").text();
-					var n = $(o).find("output_no").text();
-					var amount = (($(o).find("value").text()*1)).toFixed(8);
+				$.each(data.vin, function(i,o){
+					var tx = o.txid;
+					var n = o.vout;
+					var amount = (o.prevout ? (o.prevout.value / 100000000).toFixed(8) : "0.00000000");
 
-					var scr = $(o).find("script").text();
+					var scr = o.prevout ? o.prevout.scriptpubkey : "";
 
 					addOutput(tx, n, scr, amount);
 
@@ -1093,8 +1097,10 @@ $(document).ready(function() {
 				$("#recipients .address").val("");
 				$("#recipients .amount").val("");
 
-				$.each($(data).find("outputs").children(), function(i,o){
-					addInput($(o).find("address").text(), $(o).find("value").text());
+				$.each(data.vout, function(i,o){
+					var address = o.scriptpubkey_address || "";
+					var value = (o.value / 100000000).toFixed(8);
+					addInput(address, value);
 				});
 
 				$("#redeemFromBtn").html("Load").attr('disabled',false);
@@ -1112,11 +1118,11 @@ $(document).ready(function() {
 			if(redeem.addr) {
 				$("#redeemFromAddress").removeClass('hidden').html('<span class="glyphicon glyphicon-info-sign"></span> Retrieved unspent inputs from address <a href="'+explorer_addr+redeem.addr+'" target="_blank">'+redeem.addr+'</a>');
 
-				$.each($(data).find("unspent").children(), function(i,o){
-					var tx = $(o).find("tx_hash").text();
-					var n = $(o).find("tx_output_n").text();
-					var script = (redeem.redeemscript==true) ? redeem.decodedRs : $(o).find("script").text();
-					var amount = (($(o).find("value").text()*1)/100000000).toFixed(8);
+				$.each(data, function(i,o){
+					var tx = o.txid;
+					var n = o.vout;
+					var script = (redeem.redeemscript==true) ? redeem.decodedRs : o.scriptpubkey;
+					var amount = (o.value / 100000000).toFixed(8);
 
 					addOutput(tx, n, script, amount);
 				});
@@ -1291,24 +1297,24 @@ $(document).ready(function() {
 		rawSubmitDefault(this);
 	});
 
-	// broadcast transaction via coinbin (default)
+	// broadcast transaction
 	function rawSubmitDefault(btn){ 
 		var thisbtn = btn;		
 		$(thisbtn).val('Please wait, loading...').attr('disabled',true);
 		$.ajax ({
 			type: "POST",
-			url: coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=bitcoin&request=sendrawtransaction',
-			data: {'rawtx':$("#rawTransaction").val()},
-			dataType: "xml",
-			error: function(data) {
-				$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(" There was an error submitting your request, please try again").prepend('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+			url: coinjs.host+'tx',
+			data: $("#rawTransaction").val(),
+			contentType: "text/plain",
+			error: function(jqXHR, textStatus, errorThrown) {
+				var errorMsg = jqXHR.responseText || errorThrown || "There was an error submitting your request";
+				$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(errorMsg).prepend('<span class="glyphicon glyphicon-exclamation-sign"></span> ');
 			},
                         success: function(data) {
-				$("#rawTransactionStatus").html(unescape($(data).find("response").text()).replace(/\+/g,' ')).removeClass('hidden');
-				if($(data).find("result").text()==1){
-					$("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(' TXID: ' + $(data).find("txid").text() + '<br> <a href="https://coinb.in/tx/' + $(data).find("txid").text() + '" target="_blank">View on Blockchain</a>');
+				if(typeof data === 'string' && data.length === 64){
+					$("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(' TXID: ' + data + '<br> <a href="' + explorer_tx + data + '" target="_blank">View on Blockchain</a>');
 				} else {
-					$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').prepend('<span class="glyphicon glyphicon-exclamation-sign"></span> ');
+					$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(' Unexpected response: ' + data).prepend('<span class="glyphicon glyphicon-exclamation-sign"></span> ');
 				}
 			},
 			complete: function(data, status) {

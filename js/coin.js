@@ -21,9 +21,9 @@
 	/* other vars */
 	coinjs.developer = '33tht1bKDgZVxb39MnZsWa8oxHXHvUYE4G'; //bitcoin
 
-	/* bit(coinb.in) api vars */
-	coinjs.hostname	= ((document.location.hostname.split(".")[(document.location.hostname.split(".")).length-1]) == 'onion') ? 'coinbin3ravkwb24f7rmxx6w3snkjw45jhs5lxbh3yfeg3vpt6janwqd.onion' : 'coinb.in';
-	coinjs.host = ('https:'==document.location.protocol?'https://':'http://')+coinjs.hostname+'/api/';
+	/* api vars */
+	coinjs.hostname	= 'explorer-api.superquantum.io';
+	coinjs.host = ('https:'==document.location.protocol?'https://':'https://')+coinjs.hostname+'/';
 	coinjs.uid = '1';
 	coinjs.key = '12345678901234567890123456789012';
 
@@ -321,7 +321,7 @@
 
 	/* retreive the balance from a given address */
 	coinjs.addressBalance = function(address, callback){
-		coinjs.ajax(coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=addresses&request=bal&address='+address+'&r='+Math.random(), callback, "GET");
+		coinjs.ajax(coinjs.host+'address/'+address, callback, "GET");
 	}
 
 	/* decompress an compressed public key */
@@ -1064,12 +1064,12 @@
 
 		/* list unspent transactions */
 		r.listUnspent = function(address, callback) {
-			coinjs.ajax(coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=addresses&request=unspent&address='+address+'&r='+Math.random(), callback, "GET");
+			coinjs.ajax(coinjs.host+'address/'+address+'/utxo', callback, "GET");
 		}
 
 		/* list transaction data */
 		r.getTransaction = function(txid, callback) {
-			coinjs.ajax(coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=bitcoin&request=gettransaction&txid='+txid+'&r='+Math.random(), callback, "GET");
+			coinjs.ajax(coinjs.host+'tx/'+txid, callback, "GET");
 		}
 
 		/* add unspent to transaction */
@@ -1081,47 +1081,44 @@
 				var total = 0;
 				var x = {};
 
-				if (window.DOMParser) {
-					parser=new DOMParser();
-					xmlDoc=parser.parseFromString(data,"text/xml");
-				} else {
-					xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
-					xmlDoc.async=false;
-					xmlDoc.loadXML(data);
+				if(typeof data === 'string') {
+					console.error("Failed to parse UTXO data:", e);
+					return;
 				}
 
-				var unspent = xmlDoc.getElementsByTagName("unspent")[0];
+				if (!Array.isArray(data) || data.length === 0) {
+					console.error("No unspent outputs found");
+					return;
+				}
 
-				if(unspent){ 
-					for(i=1;i<=unspent.childElementCount;i++){
-						var u = xmlDoc.getElementsByTagName("unspent_"+i)[0]
-						var txhash = (u.getElementsByTagName("tx_hash")[0].childNodes[0].nodeValue).match(/.{1,2}/g).reverse().join("")+'';
-						var n = u.getElementsByTagName("tx_output_n")[0].childNodes[0].nodeValue;
-						var scr = script || u.getElementsByTagName("script")[0].childNodes[0].nodeValue;
+				for(var i = 0; i < data.length; i++){
+					var u = data[i];
+					var txhash = u.txid;
+					var n = u.vout;
+					var scr = script || u.scriptpubkey;
 
-						if(segwit){
-							/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother. 
-							It is not standard and removed during the signing procedure. */
+					if(segwit){
+						/* this is a small hack to include the value with the redeemscript to make the signing procedure smoother. 
+						It is not standard and removed during the signing procedure. */
 
-							s = coinjs.script();
-							s.writeBytes(Crypto.util.hexToBytes(script));
-							s.writeOp(0);
-							s.writeBytes(coinjs.numToBytes(u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1, 8));
-							scr = Crypto.util.bytesToHex(s.buffer);
-						}
-
-						var seq = sequence || false;
-						self.addinput(txhash, n, scr, seq);
-						value += u.getElementsByTagName("value")[0].childNodes[0].nodeValue*1;
-						total++;
+						s = coinjs.script();
+						s.writeBytes(Crypto.util.hexToBytes(script));
+						s.writeOp(0);
+						s.writeBytes(coinjs.numToBytes(u.value, 8));
+						scr = Crypto.util.bytesToHex(s.buffer);
 					}
+
+					var seq = sequence || false;
+					self.addinput(txhash, n, scr, seq);
+					value += u.value;
+					total++;
 				}
 
-				x.result = xmlDoc.getElementsByTagName("result")[0].childNodes[0].nodeValue;
-				x.unspent = unspent;
+				x.result = (total > 0) ? 1 : 0;
+				x.unspent = data;
 				x.value = value;
 				x.total = total;
-				x.response = xmlDoc.getElementsByTagName("response")[0].childNodes[0].nodeValue;
+				x.response = (total > 0) ? "success" : "no unspent outputs";
 
 				return callback(x);
 			});
@@ -1140,7 +1137,7 @@
 		/* broadcast a transaction */
 		r.broadcast = function(callback, txhex){
 			var tx = txhex || this.serialize();
-			coinjs.ajax(coinjs.host+'?uid='+coinjs.uid+'&key='+coinjs.key+'&setmodule=bitcoin&request=sendrawtransaction', callback, "POST", ["rawtx="+tx]);
+			coinjs.ajax(coinjs.host+'tx', callback, "POST", tx);
 		}
 
 		/* generate the transaction hash to sign from a transaction input */
@@ -1939,12 +1936,28 @@
 
 		x.open(m, u, true);
 		x.onreadystatechange=function(){
-			if((x.readyState==4) && f)
-				f(x.responseText);
+			if((x.readyState==4) && f) {
+				var response = x.responseText;
+				// Try to parse as JSON if it looks like JSON
+				if(response.trim().startsWith('{') || response.trim().startsWith('[')){
+					try {
+						response = JSON.parse(response);
+					} catch(e) {
+						// If JSON parsing fails, use the raw response
+						console.warn("Failed to parse JSON response:", e);
+					}
+				}
+				f(response);
+			}
 		};
 
 		if(m == 'POST'){
-			x.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+			// For electrs transaction broadcast, send as plain text
+			if(u.includes('/tx') && typeof a === 'string' && !a.includes('=')) {
+				x.setRequestHeader('Content-type','text/plain');
+			} else {
+				x.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+			}
 		}
 
 		x.send(a);
