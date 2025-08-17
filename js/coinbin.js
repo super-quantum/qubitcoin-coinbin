@@ -701,8 +701,8 @@ $(document).ready(function() {
 
 				$("#transactionCreate").removeClass("hidden");
 
-				// Check fee against hard 0.01 as well as fluid 200 satoshis per byte calculation.
-				if($("#transactionFee").val()>=0.01 || $("#transactionFee").val()>= estimatedTxSize * 200 * 1e-8){
+				// Check fee against fluid 200 satoshis per byte calculation.
+				if($("#transactionFee").val()>= estimatedTxSize * 200 * 1e-8){
 					$("#modalWarningFeeAmount").html($("#transactionFee").val());
 					$("#modalWarningFee").modal("show");
 				}
