@@ -71,16 +71,6 @@
 							<li><a href="#sign" data-toggle="tab"><span class="glyphicon glyphicon-pencil"></span> Sign</a></li>
 							<li><a href="#broadcast" data-toggle="tab"><span class="glyphicon glyphicon-globe"></span> Broadcast</a></li>
 							<li><a href="#wallet" data-toggle="tab"><span class="glyphicon glyphicon-briefcase"></span> Wallet</a></li>
-
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-info-sign"></span> Help<b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li><a href="#settings" data-toggle="tab">Settings</a></li>
-									<li><a href="https://status.coinb.in/" target="_blank">Service Status</a></li>
-									<li role="separator" class="divider"></li>
-									<li><a href="#about" data-toggle="tab">About</a></li>
-								</ul>
-							</li>
 						</ul>
 					</div>
 				</div>
@@ -101,7 +91,6 @@
 						<div class="jumbotron">
 							<h1>Qubitcoin. It's your money!</h1>
 							<p>Be your own bank, take control of your own money and start using Qubitcoin today!</p>
-							<p><a class="btn btn-primary btn-lg" href="#about" role="button">Learn more &raquo;</a></p>
 						</div>
 
 						<hr>
@@ -657,11 +646,6 @@
 								<p class="checkbox">
 									<label><input type="checkbox" id="txRBF" class="checkbox-inline" checked> Make this a <a href="https://en.bitcoin.it/wiki/Transaction_replacement" target="_blank">RBF transaction</a>.</label>
 								</p>
-
-								<hr>
-
-								<label>Network</label>
-								<p>The <a href="#settings">settings</a> page can be used to select alternative networks of which you can retrieve your unspent outputs and broadcast a signed transaction into.</p>
 
 								<hr>
 							</div>
@@ -1329,7 +1313,6 @@
 
 					<div class="tab-pane tab-content" id="broadcast">
 						<h2>Broadcast Transaction <small>into the Qubitcoin network</small></h2>
-						<a href="#settings" style="float:right;"><span class="glyphicon glyphicon-cog"></span></a>
 						<p>Enter your hex encoded Qubitcoin transaction</p>
 						<textarea class="form-control" style="height:125px" id="rawTransaction"></textarea>
 						<br>
@@ -1345,109 +1328,6 @@
 						
 					</div>
 
-					<div class="tab-pane tab-content" id="about">
-						<h2>About <small>open source Qubitcoin wallet</small></h2>
-						<p>Version 1.7</p>
-						<p>Compatible with Qubitcoin core</p>
-						<p>Github <a href="https://github.com/OutCast3k/coinbin/">https://github.com/OutCast3k/coinbin/</a></p>
-						<p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">TOR <a href="http://coinbin3ravkwb24f7rmxx6w3snkjw45jhs5lxbh3yfeg3vpt6janwqd.onion"><i>coinbin</i>3ravkwb24f7rmxx6w3snkjw45jhs5lxbh3yfeg3vpt6janwqd.onion</a> | <i><s><a href="http://4zpinp6gdkjfplhk.onion">4zpinp6gdkjfplhk.onion</a></s></i></p>
-						<h3>What is Bitcoin?</h3>
-						<p>Bitcoin is a type of digital currency in which encryption techniques are used to regulate the generation of units of currency and verify the transfer of funds, operating independently of a central bank. See <a href="http://www.weusecoins.com/" target="_blank">weusecoins.com</a> for more information.</p>
-						<h3>Information</h3>
-						<p>Coinb.in is a free and open source project released under the MIT license, originally by <a href="https://bitcointalk.org/index.php?action=profile;u=34834" target="_blank">OutCast3k</a> in 2013. Discussion of the project can be found at <a href="https://bitcointalk.org/index.php?topic=390046" target="_blank">bitcointalk.org</a> during its early testing stages when its primary focus was to develop a proof of concept multisig solution in javascript.</p>
-						<p>Coinb.in is run and funded by the generosity of others in terms of <a href="https://github.com/OutCast3k/coinbin/graphs/contributors" target="_blank">development</a> and hosting.</p>
-						<p>Coinb.in is kindly hosted by <a href="https://www.bitvps.com/" target="_blank">BitVPS.com</a>.</p>
-						<h3>Privacy</h3>
-						<p>Coinb.in believes strongly in privacy, not only do we support the use of TOR, the site does not collect and store IP or transaction data via our servers nor do we store your bitcoins private key. We do route traffic via cloudflare using an SSL certificate.</p>
-						<h3>Support</h3>
-						<p>We recommend that you first check our <a href="https://status.coinb.in/" target="_blank">service status</a> page and then <a href="https://blog.coinb.in/" target="_blank">blog</a> page which has multiple <a href="https://blog.coinb.in/guides" target="_blank">guides</a>. However if the problem persists you can contact us by emailing support{at}coinb.in.</p>
-					</div>
-
-					<div class="tab-pane tab-content" id="settings">
-						<h2>Settings <small> making coinb.in even better!</small></h2>
-						<p>These simple settings below make coinb.in one of the most decentralized wallets in the world.</p>
-
-						<div class="row">
-							<div class="col-md-12">
-								<b>Network</b>: <br>
-								<p class="text-muted">Select which network you'd like to use for key pair generation.</p>
-								<select class="form-control" id="coinjs_coin">
-									<option value="bitcoin_mainnet" rel="0x00;0x80;0x05;0x488b21e;0x488ade4;coinb.in;coinb.in">Qubitcoin (mainnet)</option>
-								</select>
-							</div>
-						</div>
-
-						<div id="settingsCustom" class="hidden">
-
-							<hr>
-
-							<div class="row">
-								<div class="col-md-4">
-									<b>Pub</b>: <br>
-									<input type="text" class="form-control coinjssetting" id="coinjs_pub">
-								</div>
-
-								<div class="col-md-4">
-									<b>Priv</b>: <br>
-									<input type="text" class="form-control coinjssetting" id="coinjs_priv">
-								</div>
-
-								<div class="col-md-4">
-									<b>Script Hash (multisig)</b>: <br>
-									<input type="text" class="form-control coinjssetting" id="coinjs_multisig">
-								</div>
-							</div>
-
-
-							<div class="row">
-								<div class="col-md-6">
-									<b>HD Pub</b>: <br>
-									<input type="text" class="form-control coinjssetting" id="coinjs_hdpub">
-								</div>
-
-								<div class="col-md-6">
-									<b>HD Priv</b>: <br>
-									<input type="text" class="form-control coinjssetting" id="coinjs_hdprv">
-								</div>
-							</div>
-
-							<br>
-
-							<div class="alert alert-info"> <span class="glyphicon glyphicon-info-sign"></span> You will not be able to automatically broadcast or retreive your unspent outputs from coinb.in when using this setting and will need to use your desktop client instead, however everything else such as creating key pairs, addresses, transaction generation and signing will continue to function normally.</div>
-						</div>
-
-						<hr>
-
-						<div class="row">
-							<div class="col-md-12">
-								<b>Broadcast</b>: <br>
-								<p class="text-muted">Select the network you wish to broadcast the transaction via</p>
-								<select class="form-control" id="coinjs_broadcast">
-									<option value="coinb.in">superquantum.io (Qubitcoin mainnet)</option>
-								</select>
-							</div>
-						</div>
-							
-						<hr>
-
-						<div class="row">
-							<div class="col-md-12">
-								<b>Unspent outputs</b>: <br>
-								<p class="text-muted">Select the network you wish to retreive your unspent outputs from</p>
-								<select class="form-control" id="coinjs_utxo">
-									<option value="coinb.in">superquantum.io (Qubitcoin mainnet)</option>
-								</select>
-							</div>
-						</div>
-
-						<br>
-
-						<div id="statusSettings" class="hidden alert">
-						</div>
-
-						<input type="submit" class="btn btn-primary" id="settingsBtn">
-
-					</div>
 
 					<br>
 					<p class="text-muted">This page uses javascript to generate your addresses and sign your transactions within your browser, this means we <i>never</i> receive your private keys, this can be independently verified by reviewing the source code on <a href="https://github.com/OutCast3k/coinbin/" target="_blank">github</a>. You can even <a href="https://github.com/OutCast3k/coinbin/archive/master.zip">download</a> this page and host it yourself or run it offline!</p>
