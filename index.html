@@ -417,10 +417,6 @@
 								<p>Enter the public keys of all the participants, to create a <a href="https://en.bitcoin.it/wiki/Address#Multi-signature_addresses" target="_blank">multi signature address</a>. Maximum of 15 allowed. Compressed and uncompressed public keys are accepted.</p>
 							</div>
 
-							<div class="col-md-3">
-								<p class="alert alert-info"><span class="glyphicon glyphicon-info-sign"></span> <a href="javascript:;" data-toggle="modal" data-target="#modalMediator"><abbr>Need a Mediator?</abbr></a></p>
-							</div>
-
 							<div class="col-md-1">
 							</div>
 						</div>
@@ -1419,62 +1415,6 @@
 		</div>
 	</div>
 	<!-- qrcode scanner modal -->
-
-	<!-- mediator modal -->
-	<div class="modal fade" id="modalMediator" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title">Transaction Mediation</h4>
-				</div>
-
-				<div class="modal-body">
-					<p>You can add a public key when creating a <i>2-of-3 multi signature address</i> and for a low fee your mediator will help with the recovery of the funds should any disputes arise.</p>
-
-					<p>Should a dispute arise please contact the below address for further information</p>
-					<div class="row">
-						<div class="col-md-5">
-							<label>Mediator:</label>
-
-							<!-- 
-								You need to contact us before adding your pubkey 
-								and submitting a pull request on github. 
-
-								format is: pubkey;email;fee
-							-->
-
-							<select id="mediatorList" class="form-control">
-								<option value="02b6231cc602740c29436eafbb6448880f4058cc3d2745c709deee313104678277;support@coinb.in;1">Coinb.in</option>
-							</select>
-						</div>
-
-						<div class="col-md-5">
-							<label>Address:</label> <span class="text-muted">(for disputes)</span>
-							<input id="mediatorEmail" type="text" class="form-control address" value="" readonly>	
-						</div>
-
-						<div class="col-md-2">
-							<label>Fee (%):</label> 
-							<input id="mediatorFee" type="text" class="form-control address" value="" readonly>	
-						</div>
-
-					</div>
-					<br>
-
-					<label>Public Key:</label>
-					<input id="mediatorPubkey" type="text" class="form-control address" value="" readonly>
-					<br>
-				</div>
-
-				<div class="modal-footer">
-					<button class="btn btn-primary" type="button" id="mediatorAddKey">Add Public Key</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal" id="mediatorClose">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- mediator modal -->
 
 
 	<!-- warning (fee) modal -->

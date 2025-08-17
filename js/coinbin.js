@@ -465,34 +465,6 @@ $(document).ready(function() {
 		}
 	});
 
-	$("#mediatorList").change(function(){
-		var data = ($(this).val()).split(";");
-		$("#mediatorPubkey").val(data[0]);
-		$("#mediatorEmail").val(data[1]);
-		$("#mediatorFee").val(data[2]);
-	}).change();
-
-	$("#mediatorAddKey").click(function(){
-		var count = 0;
-		var len = $(".pubkeyRemove").length;
-		if(len<14){
-			$.each($("#multisigPubKeys .pubkey"),function(i,o){
-				if($(o).val()==''){
-					$(o).val($("#mediatorPubkey").val()).fadeOut().fadeIn();
-					$("#mediatorClose").click();
-					return false;
-				} else if(count==len){
-					$("#multisigPubKeys .pubkeyAdd").click();
-					$("#mediatorAddKey").click();
-					return false;
-				}
-				count++;
-			});
-
-			$("#mediatorClose").click();
-		}
-	});
-
 	/* new -> time locked code */
 
 	$('#timeLockedDateTimePicker').datetimepicker({
@@ -912,39 +884,6 @@ $(document).ready(function() {
 		return r;
 	}
 
-	/* mediator payment code for when you used a public key */
-	function mediatorPayment(redeem){
-
-		if(redeem.from=="redeemScript"){
-
-			$('#recipients .row[rel="'+redeem.addr+'"]').parent().remove();
-
-			$.each(redeem.decodedRs.pubkeys, function(i, o){
-				$.each($("#mediatorList option"), function(mi, mo){
-
-					var ms = ($(mo).val()).split(";");
-
-					var pubkey = ms[0]; // mediators pubkey
-					var fee = ms[2]*1; // fee in a percentage
-					var payto = coinjs.pubkey2address(pubkey); // pay to mediators address
-
-					if(o==pubkey){ // matched a mediators pubkey?
-
-						var clone = '<span><div class="row recipients mediator mediator_'+pubkey+'" rel="'+redeem.addr+'">'+$("#recipients .addressAddTo").parent().parent().html()+'</div><br></span>';
-						$("#recipients").prepend(clone);
-
-						$("#recipients .mediator_"+pubkey+" .glyphicon-plus:first").removeClass('glyphicon-plus');
-						$("#recipients .mediator_"+pubkey+" .address:first").val(payto).attr('disabled', true).attr('readonly',true).attr('title','Medation fee for '+$(mo).html());
-
-						var amount = ((fee*$("#totalInput").html())/100).toFixed(8);
-						$("#recipients .mediator_"+pubkey+" .amount:first").attr('disabled',(((amount*1)==0)?false:true)).val(amount).attr('title','Medation fee for '+$(mo).html());
-					}
-				});
-			});
-
-			validateOutputAmount();
-		}
-	}
 
 	/* global function to add outputs to page */
 	function addOutput(tx, n, script, amount) {
@@ -1044,8 +983,6 @@ $(document).ready(function() {
 
 			$("#redeemFromBtn").html("Load").attr('disabled',false);
 			totalInputAmount();
-
-			mediatorPayment(redeem);
 		});
 	}
 
