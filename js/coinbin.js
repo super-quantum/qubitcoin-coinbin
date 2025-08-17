@@ -2,9 +2,9 @@ $(document).ready(function() {
 
 	/* open wallet code */
 
-	var explorer_tx = "https://coinb.in/tx/"
-	var explorer_addr = "https://coinb.in/addr/"
-	var explorer_block = "https://coinb.in/block/"
+	var explorer_tx = "https://explorer.superquantum.io/tx/"
+	var explorer_addr = "https://explorer.superquantum.io/address/"
+	var explorer_block = "https://explorer.superquantum.io/block/"
 
 	var wallet_timer = false;
 
@@ -1226,7 +1226,7 @@ $(document).ready(function() {
 			},
                         success: function(data) {
 				if(typeof data === 'string' && data.length === 64){
-					$("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(' TXID: ' + data + '<br> <a href="' + explorer_tx + data + '" target="_blank">View on Blockchain</a>');
+					$("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden").html(' TXID: ' + data + '<br> <a href="' + explorer_tx + data + '" target="_blank">View on Explorer</a>');
 				} else {
 					$("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden").html(' Unexpected response: ' + data).prepend('<span class="glyphicon glyphicon-exclamation-sign"></span> ');
 				}
@@ -1781,13 +1781,6 @@ $(document).ready(function() {
 			configureBroadcast();
 			configureGetUnspentTx();
 
-            if (coinjs.pub == 0x30){   // LTC
-                explorer_addr = "https://chain.so/address/LTC/";
-                coinjs.bech32.hrp = "ltc";
-            }
-            else if (coinjs.pub == 0x1e){   // DOGE
-                explorer_addr = "https://chain.so/address/DOGE/";
-            }
 
 			$("#statusSettings").addClass("alert-success").removeClass("hidden").html("<span class=\"glyphicon glyphicon-ok\"></span> Settings updates successfully").fadeOut().fadeIn();	
 		} else {
