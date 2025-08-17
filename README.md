@@ -1,13 +1,13 @@
 coinbin
 =======
 
-A Open Source Browser Based Bitcoin Wallet. Version 1.7 beta by OutCast3k
+A Open Source Browser Based Qubitcoin Wallet. Forked from Version 1.7 beta by OutCast3k.
 
-Live version available at http://coinb.in/ or coinbin3ravkwb24f7rmxx6w3snkjw45jhs5lxbh3yfeg3vpt6janwqd.onion
+Live version available at http://superquantum.io/wallet
 
-Github URL: https://github.com/OutCast3k/coinbin/
+Github URL: https://github.com/super-quantum/qubitcoin-coinbin/
 
-Coinb.in supports a number of key features such as: 
+Supports a number of key features such as: 
 
 - Offline Compressed & uncompressed Address creation.
 - Offline Multisignature Address creation.
@@ -30,5 +30,5 @@ Coinb.in supports a number of key features such as:
 - Replace by fee (RBF) Support.
 - Segwit Support.
 - Bech32 address support.
-- Fee calculator - https://coinb.in/#fees
+<!-- - Fee calculator - https://coinb.in/#fees -->
 - Transaction rebuild support for RBF and double spending.
