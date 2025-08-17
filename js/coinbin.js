@@ -695,10 +695,8 @@ $(document).ready(function() {
 			$("#transactionCreate .txSize").html(tx.size());
 
 			if($("#feesestnewtx").attr('est')=='y'){
-				$("#fees .txhex").val($("#transactionCreate textarea").val());
-				$("#feesAnalyseBtn").click();
-				$("#fees .txhex").val("");
-				window.location = "#fees";
+				// fee estimation disabled; show notice instead of navigating
+				alert('Fee estimation is a work in progress.');
 			} else {
 
 				$("#transactionCreate").removeClass("hidden");
@@ -715,46 +713,9 @@ $(document).ready(function() {
 		}
 	});
 
-	$("#feesestnewtx").click(function(){
-		$(this).attr('est','y');
-		$("#transactionBtn").click();
-	});
-
-	$("#feesestwallet").click(function(){
-		$(this).attr('est','y');
-		var outputs = $("#walletSpendTo .output").length;
-
-		$("#fees .inputno, #fees .outputno, #fees .bytes").html(0);
-		$("#fees .slider").val(0);
-
-		var tx = coinjs.transaction();
-		tx.listUnspent($("#walletAddress").html(), function(data){
-			console.log(data);
-			var inputs = Array.isArray(data) ? data.length : 0;
-			if($("#walletSegwit").is(":checked")){	
-				$("#fees .txi_segwit").val(inputs);
-				$("#fees .txi_segwit").trigger('input');
-			} else {
-				$("#fees .txi_regular").val(inputs);
-				$("#fees .txi_regular").trigger('input');
-			}
-
-			$.each($("#walletSpendTo .output"), function(i,o){
-				var addr = $('.addressTo',o);
-				var ad = coinjs.addressDecode(addr.val());
-				if (ad.version == coinjs.pub){ // p2pkh
-					$("#fees .txo_p2pkh").val(($("#fees .txo_p2pkh").val()*1)+1);
-					$("#fees .txo_p2pkh").trigger('input');					
-				} else { // p2psh
-					$("#fees .txo_p2sh").val(($("#fees .txo_p2sh").val()*1)+1);
-					$("#fees .txo_p2sh").trigger('input');
-				}
-			});
-
-		});
-
-		//feeStats();
-		window.location = "#fees";
+	// Disable direct fee estimation navigation; show WIP info instead
+	$("#feesestnewtx, #feesestwallet").off('click').on('click', function(){
+		alert('Fee estimation is a work in progress.');
 	});
 
 	$(".txidClear").click(function(){
@@ -1720,9 +1681,7 @@ $(document).ready(function() {
 	}
 
 	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-		if(e.target.hash == "#fees"){
-			feeStats();
-		}
+		// Fees page auto-load disabled.
 	})
 
 	$(".qrcodeBtn").click(function(){

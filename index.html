@@ -76,7 +76,6 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-info-sign"></span> Help<b class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li><a href="#settings" data-toggle="tab">Settings</a></li>
-									<li><a href="#fees" data-toggle="tab">Fee Calculator</a></li>
 									<li><a href="https://status.coinb.in/" target="_blank">Service Status</a></li>
 									<li role="separator" class="divider"></li>
 									<li><a href="#about" data-toggle="tab">About</a></li>
@@ -127,7 +126,7 @@
 						<div class="row">
 							<div class="col-md-4">
 								<h3><span class="glyphicon glyphicon-piggy-bank"></span> Wallet</h3>
-								<p>Quick access to an <a href="#wallet">online wallet</a> where only you have access to your own private keys &amp; can <a href="#fees">calculate your own fee</a>!</p>
+								<p>Quick access to an <a href="#wallet">online wallet</a> where only you have access to your own private keys.</p>
 							</div>
 
 							<div class="col-md-4">
@@ -280,7 +279,7 @@
 													</div>
 													<div class="row">
 														<div class="col-xs-6">
-															<label><abbr title="the amount to pay in network miner fee">Transaction Fee</abbr>&nbsp;&nbsp;<a href="javascript:;" id="feesestwallet"><span class="glyphicon glyphicon-question-sign"></span></a></label>
+															<label><abbr title="the amount to pay in network miner fee">Transaction Fee</abbr>&nbsp;&nbsp;<a href="javascript:;" id="feesestwallet" title="Fee estimation is a work in progress"><span class="glyphicon glyphicon-question-sign"></span></a></label>
 															<input type="text" class="form-control" value="0.00001000" id="txFee">
 														</div>
 													</div>
@@ -759,7 +758,7 @@
 
 						<div class="row">
 							<div class="col-xs-6">
-								<label><abbr title="What is not spent will be used as a transaction fee, so remember to add a &quot;change address&quot;">Transaction Fee</abbr>&nbsp;&nbsp;<a href="javascript:;" id="feesestnewtx"><span class="glyphicon glyphicon-question-sign"></span></a></label>
+								<label><abbr title="What is not spent will be used as a transaction fee, so remember to add a &quot;change address&quot;">Transaction Fee</abbr>&nbsp;&nbsp;<a href="javascript:;" id="feesestnewtx" title="Fee estimation is a work in progress"><span class="glyphicon glyphicon-question-sign"></span></a></label>
 								<input type="text" id="transactionFee" class="form-control" value="0.0000" readonly>
 							</div>
 						</div>
@@ -786,6 +785,10 @@
 
 
 					<div class="tab-pane tab-content" id="fees">
+						<div class="alert alert-warning" role="alert" style="margin-top:10px;">
+							<h3 style="margin:0;">Fee estimation is a work in progress</h3>
+							<p style="margin:5px 0 0;">This tool is currently being improved and may be unavailable.</p>
+						</div>
 						<h2>Bitcoin Fee Calculator</h2>
 						<p>This page will give you a guide on the lowest fee to use to get your transaction included within the next few blocks. It works by predicting the size of a transaction and comparing it to another transaction in a recent block to determine an appropriate fee.</p>	
 
