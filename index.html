@@ -2,11 +2,11 @@
 <html lang="en">
 	<head>
 
-		<title>Qubitcoin Wallet</title>
+		<title>Qubitcoin Quantum Wallet - SuperQuantum</title>
 
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-		<meta name="keywords" content="Qubitcoin, wallet, multisig, multisignature, address, browser, segwit, javascript, js, broadcast, transaction, verify, decode" />
-		<meta name="description" content="A Qubitcoin Wallet written in Javascript. Supports Multisig, SegWit, Custom Transactions, nLockTime and more!" />
+		<meta name="keywords" content="Qubitcoin, quantum, wallet, multisig, multisignature, address, browser, segwit, javascript, js, broadcast, transaction, verify, decode, quantum-enhanced, quantum-resistant" />
+		<meta name="description" content="A Quantum-Enhanced Qubitcoin Wallet written in Javascript. Supports Quantum-Resistant MultiSig, SegWit, Custom Transactions, nLockTime and more!" />
 
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,7 +51,7 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a href="#home" class="navbar-brand" id="homeBtn"><img src="images/coinbin.png" style="height:49px;margin-top:-15px"></a>
+						<a href="#home" class="navbar-brand" id="homeBtn" data-toggle="tab"><img src="images/qubitcoin.png" style="height:49px;margin-top:-15px"></a>
 					</div>
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav">
@@ -81,56 +81,68 @@
 				<noscript class="alert alert-danger center-block"><span class="glyphicon glyphicon-exclamation-sign"></span> This page uses javascript, please enable it to continue!</noscript>
 
 				<div class="tab-content">
-					<div class="tab-pane tab-content active" id="home">
+					<div class="tab-pane active" id="home">
 						<div class="row">
 							<div class="col-md-12">
-								<h2>Coinb.in <small>Welcome to the Blockchain</small></h2>
+								<h2>Qubitcoin Quantum Wallet <small>Welcome to the Quantum Blockchain</small></h2>
 							</div>
 						</div>
 
 						<div class="jumbotron">
-							<h1>Qubitcoin. It's your money!</h1>
-							<p>Be your own bank, take control of your own money and start using Qubitcoin today!</p>
+							<h1>Qubitcoin. Quantum-Enhanced Money!</h1>
+							<p>Harness the power of quantum computing. Be your own bank, take control of your quantum-secured money and start using Qubitcoin today!</p>
 						</div>
 
-						<hr>
+						<div class="features-section">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="feature-card">
+										<h3><span class="glyphicon glyphicon-ok"></span> Open Source</h3>
+										<p>This is an open source web based wallet written in javascript and released under the <a href="LICENSE">MIT license</a> which means it's free to use and edit.</p>
+									</div>
+								</div>
 
-						<div class="row">
-							<div class="col-md-4">
-								<h3><span class="glyphicon glyphicon-ok"></span> Open Source</h3>
-								<p>Coinbin is an open source web based wallet written in javascript and released under the <a href="LICENSE">MIT license</a> which means it's free to use and edit.</p>
+								<div class="col-md-4">
+									<div class="feature-card">
+										<h3><span class="glyphicon glyphicon-fullscreen"></span> MultiSig</h3>
+										<p>We offer a fully transparent <a href="#newMultiSig">multisig</a> solution which works seamlessly offline and with other qubitcoin clients.</p>
+									</div>
+								</div>
+
+								<div class="col-md-4">
+									<div class="feature-card">
+										<h3><span class="glyphicon glyphicon-bitcoin"></span> Raw Transactions</h3>
+										<p><a href="#newTransaction">Create</a>, <a href="#verify">verify</a>, <a href="#sign">sign</a> and <a href="#broadcast">broadcast</a> custom raw transactions online with advanced features and minimal effort!</p>
+									</div>
+								</div>
 							</div>
 
-							<div class="col-md-4">
-								<h3><span class="glyphicon glyphicon-fullscreen"></span> MultiSig</h3>
-								<p>We offer a fully transparent <a href="#newMultiSig">multisig</a> solution which works seamlessly offline and with other Qubitcoin clients.</p>
-							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="feature-card">
+										<h3><span class="glyphicon glyphicon-piggy-bank"></span> Wallet</h3>
+										<p>Quick access to an <a href="#wallet">online wallet</a> where only you have access to your own private keys!</p>
+									</div>
+								</div>
 
-							<div class="col-md-4">
-								<h3><span class="glyphicon glyphicon-bitcoin"></span> Raw Transactions</h3>
-								<p><a href="#newTransaction">Create</a>, <a href="#verify">verify</a>, <a href="#sign">sign</a> and <a href="#broadcast">broadcast</a> custom raw transactions online with advanced features and minimal effort!</p>
-							</div>
-						</div>
+								<div class="col-md-4">
+									<div class="feature-card">
+										<h3><span class="glyphicon glyphicon-globe"></span> Addresses</h3>
+										<p>We support <a href="#newAddress">regular addresses</a>, <a href="#newMultiSig">multisig</a>, <a href="#newSegWit">segwit / bech32</a> and stealth all with access to your own private keys!</p>
+									</div>
+								</div>
 
-						<div class="row">
-							<div class="col-md-4">
-								<h3><span class="glyphicon glyphicon-piggy-bank"></span> Wallet</h3>
-								<p>Quick access to an <a href="#wallet">online wallet</a> where only you have access to your own private keys.</p>
-							</div>
-
-							<div class="col-md-4">
-								<h3><span class="glyphicon glyphicon-globe"></span> Addresses</h3>
-								<p>We support <a href="#newAddress">regular addresses</a>, <a href="#newMultiSig">multisig</a>, <a href="#newSegWit">segwit / bech32</a> and stealth all with access to your own private keys!</p>
-							</div>
-
-							<div class="col-md-4">
-								<h3><span class="glyphicon glyphicon-wrench"></span>  Development</h3>
-								<p>Use what we've built to write your own projects! See our documention (coming soon), or contribute at <a href="https://github.com/super-quantum/qubitcoin-coinbin/">github</a>.</p>
+								<div class="col-md-4">
+									<div class="feature-card">
+										<h3><span class="glyphicon glyphicon-wrench"></span> Development</h3>
+										<p>Use what we've built to write your own projects! Check out our source code or contribute at <a href="https://github.com/super-quantum/qubitcoin-coinbin/">github</a>.</p>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 
-					<div class="tab-pane tab-content" id="wallet">
+					<div class="tab-pane" id="wallet">
 						<div class="row">
 							<div class="col-md-12">
 								<h2>Open Wallet <small> browser based Qubitcoin wallet</small></h2>
@@ -230,7 +242,7 @@
 														</span>
 													</div>
 
-													<label>Private Key (AES256 encrypted key)</label>
+													<label>Private Key <i>(AES256 encrypted key)</i></label>
 													<input class="form-control privkeyaes" type="text" readonly>
 												</div>
 
@@ -282,7 +294,7 @@
 						</div>
 					</div>
 
-					<div class="tab-pane tab-content" id="newAddress">
+					<div class="tab-pane" id="newAddress">
 						<h2>New Address <small>create a new address</small></h2>
 						<p>Any keys used you will need to manually store safely as they will be needed later to redeem the Qubitcoins.</p>
 						<label>Address (Share)</label>
@@ -352,7 +364,7 @@
 						<br>
 					</div>
 
-					<div class="tab-pane tab-content" id="newSegWit">
+					<div class="tab-pane" id="newSegWit">
 						<h2>New SegWit Address <small> Smaller &amp; Faster Transactions</small></h2>
 
 						<p>Any keys used you will need to manually store safely as they will be needed later to redeem the Qubitcoins.</p>
@@ -407,7 +419,7 @@
 						<br>
 					</div>
 
-					<div class="tab-pane tab-content" id="newMultiSig">
+					<div class="tab-pane" id="newMultiSig">
 						<h2>New Multisig Address <small>Secure multisig address</small></h2>
 
 						<div class="row">
@@ -482,7 +494,7 @@
 						<br>
 					</div>
 
-                    <div class="tab-pane tab-content" id="newTimeLocked">
+                    <div class="tab-pane" id="newTimeLocked">
                         <h2>New Time Locked Address <small>Coins can be released only after a certain date</small></h2>
 
                         <div class="row">
@@ -559,7 +571,7 @@
                         <br>
                     </div>
 
-					<div class="tab-pane tab-content" id="newHDaddress">
+					<div class="tab-pane" id="newHDaddress">
 						<h2>New HD Address <small>making bip32 even easier</small></h2>
 						<p>Use the form below to generate a <i>master</i> hierarchical deterministic address.</p>
 
@@ -590,7 +602,7 @@
 						<input type="button" class="btn btn-primary" value="Generate" id="newHDKeysBtn">
 					</div>
 
-					<div class="tab-pane tab-content" id="newTransaction">
+					<div class="tab-pane" id="newTransaction">
 						<h2>Transaction <small>Create a new transaction</small></h2>
 						<p>Use this page to create a raw transaction</p>
 
@@ -759,7 +771,7 @@
 					</div>
 
 
-					<div class="tab-pane tab-content" id="fees">
+					<div class="tab-pane" id="fees">
 						<div class="alert alert-warning" role="alert" style="margin-top:10px;">
 							<h3 style="margin:0;">Fee estimation is a work in progress</h3>
 							<p style="margin:5px 0 0;">This tool is currently being improved and may be unavailable.</p>
@@ -967,7 +979,7 @@
 						</div>
 					</div>
 
-					<div class="tab-pane tab-content" id="verify">
+					<div class="tab-pane" id="verify">
 						<h2>Verify <small>transactions and other scripts</small></h2>
 						<div class="row">
 							<div class="col-md-12">
@@ -1237,7 +1249,7 @@
 
 					</div>
 
-					<div class="tab-pane tab-content" id="sign">
+					<div class="tab-pane" id="sign">
 						<h2>Sign Transaction <small>once a transaction has been verified</small></h2>
 						<p>Once you have <a href="#verify">verified</a> a transaction you can sign and then <a href="#broadcast">broadcast</a> it into the network.</p>
 
@@ -1307,7 +1319,7 @@
 						<br>
 					</div>
 
-					<div class="tab-pane tab-content" id="broadcast">
+					<div class="tab-pane" id="broadcast">
 						<h2>Broadcast Transaction <small>into the Qubitcoin network</small></h2>
 						<p>Enter your hex encoded Qubitcoin transaction</p>
 						<textarea class="form-control" style="height:125px" id="rawTransaction"></textarea>
@@ -1318,7 +1330,7 @@
 						<br>
 					</div>
 
-					<div class="tab-pane tab-content" id="dev">
+					<div class="tab-pane" id="dev">
 						<h2>Development <small>Javascript framework, API and more</small></h2>
 						<div class="alert alert-info">This section is currently under development and is subject to change.</div>
 						

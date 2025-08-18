@@ -54,7 +54,11 @@ $(document).ready(function() {
 					$("#walletHistory").attr('href',explorer_addr+address);
 
 					$("#walletQrCode").html("");
-					var qrcode = new QRCode("walletQrCode");
+					var qrcode = new QRCode("walletQrCode", {
+						colorDark: "hsl(165, 80%, 40%)",
+						colorLight: "hsl(0, 0%, 8%)",
+						correctLevel: QRCode.CorrectLevel.H
+					});
 					qrcode.makeCode("qubitcoin:"+address);
 
 					$("#walletKeys .privkey").val(wif);
@@ -90,7 +94,11 @@ $(document).ready(function() {
 		$("#walletHistory").attr('href',explorer_addr);
 
 		$("#walletQrCode").html("");
-		var qrcode = new QRCode("walletQrCode");
+		var qrcode = new QRCode("walletQrCode", {
+			colorDark: "hsl(165, 80%, 40%)",
+			colorLight: "hsl(0, 0%, 8%)",
+			correctLevel: QRCode.CorrectLevel.H
+		});
 		qrcode.makeCode("qubitcoin:");
 
 		$("#walletKeys .privkey").val("");
@@ -341,9 +349,24 @@ $(document).ready(function() {
 		paperwallet.document.write('<h2>QTC PaperWallet</h2><hr><div style="margin-top: 5px; margin-bottom: 5px"><div><h3 style="margin-top: 0">Address (Share)</h3></div><div style="text-align: center;"><div id="qraddress"></div><p>'+$("#newBitcoinAddress").val()+'</p></div></div><hr><div style="margin-top: 5px; margin-bottom: 5px"><div><h3 style="margin-top: 0">Public Key</h3></div><div style="text-align: center;"><div id="qrpubkey"></div><p>'+$("#newPubKey").val()+'</p></div></div><hr><div style="margin-top: 5px; margin-bottom: 5px"><div><h3 style="margin-top: 0">Private Key (KEEP SECRET!)</h3></div><div style="text-align: center;"><div id="qrprivkey"></div><p>'+$("#newPrivKey").val()+'</p></div></div>');
 		paperwallet.document.close();
 		paperwallet.focus();
-		new QRCode(paperwallet.document.getElementById("qraddress"), {text: $("#newBitcoinAddress").val(), width: 125, height: 125});
-		new QRCode(paperwallet.document.getElementById("qrpubkey"), {text: $("#newPubKey").val(), width: 125, height: 125});
-		new QRCode(paperwallet.document.getElementById("qrprivkey"), {text: $("#newPrivKey").val(), width: 125, height: 125});
+		new QRCode(paperwallet.document.getElementById("qraddress"), {
+			text: $("#newBitcoinAddress").val(), 
+			width: 125, 
+			height: 125,
+			correctLevel: QRCode.CorrectLevel.H
+		});
+		new QRCode(paperwallet.document.getElementById("qrpubkey"), {
+			text: $("#newPubKey").val(), 
+			width: 125, 
+			height: 125,
+			correctLevel: QRCode.CorrectLevel.H
+		});
+		new QRCode(paperwallet.document.getElementById("qrprivkey"), {
+			text: $("#newPrivKey").val(), 
+			width: 125, 
+			height: 125,
+			correctLevel: QRCode.CorrectLevel.H
+		});
 		paperwallet.print();
 		paperwallet.close();
 	});
@@ -402,10 +425,30 @@ $(document).ready(function() {
 		paperwallet.document.write('<h2>QTC SegWit PaperWallet</h2><hr><div style="margin-top: 5px; margin-bottom: 5px"><div><h3 style="margin-top: 0">Address (Share)</h3></div><div style="text-align: center;"><div id="qraddress"></div><p>'+$("#newSegWitAddress").val()+'</p></div></div><hr><div style="margin-top: 5px; margin-bottom: 5px"><div><h3 style="margin-top: 0">Public Key</h3></div><div style="text-align: center;"><div id="qrpubkey"></div><p>'+$("#newSegWitPubKey").val()+'</p></div></div><hr><div style="margin-top: 5px; margin-bottom: 5px"><div><h3 style="margin-top: 0">Redeem Script</h3></div><div style="text-align: center;"><div id="qrredeem"></div><p>'+$("#newSegWitRedeemScript").val()+'</p></div></div><hr><div style="margin-top: 5px; margin-bottom: 5px"><div><h3 style="margin-top: 0">Private Key (KEEP SECRET!)</h3></div><div style="text-align: center;"><div id="qrprivkey"></div><p>'+$("#newSegWitPrivKey").val()+'</p></div></div>');
 		paperwallet.document.close();
 		paperwallet.focus();
-		new QRCode(paperwallet.document.getElementById("qraddress"), {text: $("#newSegWitAddress").val(), width: 110, height: 110});
-		new QRCode(paperwallet.document.getElementById("qrpubkey"), {text: $("#newSegWitPubKey").val(), width: 110, height: 110});
-		new QRCode(paperwallet.document.getElementById("qrredeem"), {text: $("#newSegWitRedeemScript").val(), width: 110, height: 110});
-		new QRCode(paperwallet.document.getElementById("qrprivkey"), {text: $("#newSegWitPrivKey").val(), width: 110, height: 110});
+		new QRCode(paperwallet.document.getElementById("qraddress"), {
+			text: $("#newSegWitAddress").val(), 
+			width: 110, 
+			height: 110,
+			correctLevel: QRCode.CorrectLevel.H
+		});
+		new QRCode(paperwallet.document.getElementById("qrpubkey"), {
+			text: $("#newSegWitPubKey").val(), 
+			width: 110, 
+			height: 110,
+			correctLevel: QRCode.CorrectLevel.H
+		});
+		new QRCode(paperwallet.document.getElementById("qrredeem"), {
+			text: $("#newSegWitRedeemScript").val(), 
+			width: 110, 
+			height: 110,
+			correctLevel: QRCode.CorrectLevel.H
+		});
+		new QRCode(paperwallet.document.getElementById("qrprivkey"), {
+			text: $("#newSegWitPrivKey").val(), 
+			width: 110, 
+			height: 110,
+			correctLevel: QRCode.CorrectLevel.H
+		});
 		paperwallet.print();
 		paperwallet.close();
 	});
@@ -1629,13 +1672,23 @@ $(document).ready(function() {
 
 		if(ta.length>0){
 			var w = (screen.availWidth > screen.availHeight ? screen.availWidth : screen.availHeight)/3;
-			var qrcode = new QRCode("qrcode", {width:w, height:w});
+			var qrcode = new QRCode("qrcode", {
+				width: w, 
+				height: w,
+				colorDark: "hsl(165, 80%, 40%)",
+				colorLight: "hsl(0, 0%, 8%)",
+				correctLevel: QRCode.CorrectLevel.H
+			});
 			qrstr = $(ta).val();
 			if(qrstr.length > 1024){
 				$("#qrcode").html("<p>Sorry the data is too long for the QR generator.</p>");
 			}
 		} else {
-			var qrcode = new QRCode("qrcode");
+			var qrcode = new QRCode("qrcode", {
+				colorDark: "hsl(165, 80%, 40%)",
+				colorLight: "hsl(0, 0%, 8%)",
+				correctLevel: QRCode.CorrectLevel.H
+			});
 			qrstr = "qubitcoin:"+$('.address',thisbtn).val();
 		}
 
