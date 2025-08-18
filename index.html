@@ -207,8 +207,29 @@
 											</div>
 											<br>
 											<div style="text-align:center; width:350px;">
+												<!-- Prominent Balance Display -->
+												<div style="margin-bottom: 20px;">
+													<div id="walletBalance" style="
+														font-size: 2.5rem; 
+														font-weight: 600; 
+														color: hsl(165, 80%, 40%); 
+														background: linear-gradient(135deg, hsl(0, 0%, 8%), hsl(0, 0%, 6%));
+														border: 2px solid hsl(165, 80%, 40%, 0.3);
+														border-radius: 12px;
+														padding: 15px 20px;
+														margin: 10px 0;
+														box-shadow: 0 4px 12px hsl(0, 0%, 0%, 0.3), inset 0 1px 0 hsl(165, 80%, 40%, 0.1);
+														font-family: 'IBM Plex Mono', monospace;
+														letter-spacing: 1px;
+														cursor: pointer;
+														transition: all 0.3s ease;
+													" onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 6px 16px hsl(0, 0%, 0%, 0.4), 0 0 20px hsl(165, 80%, 40%, 0.2)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 12px hsl(0, 0%, 0%, 0.3), inset 0 1px 0 hsl(165, 80%, 40%, 0.1)';">
+														0.00 QTC
+													</div>
+												</div>
+												
+												<!-- Action Buttons -->
 												<ul class="nav nav-pills" role="tablist">
-													<li role="presentation" class="active"><a href="javascript:;" id="walletBalance">0.00 QTC</a></li>
 													<li role="presentation"><a href="javascript:;" id="walletShowSpend">Spend</a></li>
 													<li role="presentation"><a href="javascript:;" id="walletHistory" target="_blank">History</a></li>
 													<li role="presentation"><a href="javascript:;" id="walletShowBuy">Buy</a></li>
