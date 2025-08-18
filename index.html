@@ -500,6 +500,18 @@
                     <div class="tab-pane" id="newTimeLocked">
                         <h2>New Time Locked Address <small>Coins can be released only after a certain date</small></h2>
 
+                        <!-- BIP 65 Warning Banner -->
+                        <div class="alert alert-danger" style="border-left: 4px solid #dc3545; background-color: #441a1a; border-color: #dc3545; margin-bottom: 20px;">
+                            <h4 style="color: #ff6b6b; margin-top: 0;"><strong>⚠️ CRITICAL WARNING</strong></h4>
+                            <p style="margin-bottom: 10px; font-size: 14px; line-height: 1.5;">
+                                <strong>This feature will NOT work until BIP 65 (OP_CHECKLOCKTIMEVERIFY) is activated on the blockchain.</strong>
+                            </p>
+                            <p style="margin-bottom: 0; font-size: 14px; line-height: 1.5;">
+                                <strong style="color: #ff6b6b;">Using this feature before BIP 65 activation will make your funds permanently irretrievable.</strong>
+                                Please verify that BIP 65 is active on the network before creating any time-locked addresses.
+                            </p>
+                        </div>
+
                         <div class="row">
 
                             <div class="col-md-11">
