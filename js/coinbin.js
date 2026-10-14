@@ -1992,4 +1992,9 @@ $(document).ready(function() {
 		return true;
 	};
 
+	/* close the collapsed (mobile) menu once a page is picked */
+	$(".navbar-collapse a[data-toggle='tab']").click(function(){
+		$(".navbar-collapse.in").collapse('hide');
+	});
+
 });

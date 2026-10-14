@@ -1413,3 +1413,149 @@ ul.dropdown-menu > li > a:focus {
 	color: hsl(165 80% 40%) !important;
 	background-color: hsl(165 80% 40% / 0.1) !important;
 }
+
+/* Small screens (phones) */
+@media (max-width: 767px) {
+	/* keep the menu reachable while scrolling */
+	#header {
+		position: sticky;
+		top: 0;
+		z-index: 1000;
+		margin-bottom: 0;
+	}
+
+	.navbar-collapse {
+		max-height: calc(100vh - 60px);
+	}
+
+	.navbar-default .navbar-nav > li > a {
+		padding-top: 12px;
+		padding-bottom: 12px;
+	}
+
+	/* less wasted space around the content */
+	#content.container {
+		padding-top: 0;
+	}
+
+	.tab-pane {
+		padding: 20px 0;
+	}
+
+	.tab-pane h2 {
+		font-size: 22px;
+		margin-bottom: 20px;
+		padding-bottom: 12px;
+	}
+
+	.tab-pane h2 small {
+		display: block;
+		margin-top: 6px;
+		font-size: 13px;
+		line-height: 1.4;
+	}
+
+	.jumbotron {
+		padding: 24px 20px;
+	}
+
+	.jumbotron h1 {
+		font-size: 28px;
+		margin-bottom: 12px;
+	}
+
+	.jumbotron p {
+		font-size: 15px;
+	}
+
+	.features-section {
+		margin-top: 20px;
+	}
+
+	.feature-card {
+		padding: 20px 16px;
+		margin-bottom: 15px;
+	}
+
+	.nav-tabs > li > a {
+		padding: 10px 12px;
+	}
+
+	/* 16px stops iOS from zooming the page when a field is focused */
+	.form-control,
+	select,
+	textarea {
+		font-size: 16px;
+	}
+
+	.table > tbody > tr > td {
+		word-break: break-all;
+	}
+
+	/* rows made of fields plus a +/- button: keep everything on one line */
+	#walletSpendTo .output,
+	#multisigPubKeys .form-horizontal,
+	#txoutputs .row,
+	#txinputs .row {
+		display: flex;
+		align-items: center;
+		margin: 0 0 10px;
+		padding: 0;
+	}
+
+	#walletSpendTo .output,
+	#multisigPubKeys .form-horizontal {
+		padding: 0 15px;
+	}
+
+	#walletSpendTo .output > br,
+	#multisigPubKeys .form-horizontal > br {
+		display: none;
+	}
+
+	#walletSpendTo .output > [class*="col-xs-"],
+	#multisigPubKeys .form-horizontal > [class*="col-xs-"],
+	#txoutputs .row > [class*="col-xs-"],
+	#txinputs .row > [class*="col-xs-"] {
+		float: none;
+		width: auto;
+		min-width: 0;
+		flex: 2 1 0;
+		padding: 0 6px 0 0;
+	}
+
+	#walletSpendTo .output > .col-xs-8,
+	#txoutputs .row > .col-xs-8,
+	#txinputs .row > .col-xs-5 {
+		flex-grow: 3;
+	}
+
+	#txinputs .row > .col-xs-1:not(:last-child) {
+		flex: 0 0 42px;
+	}
+
+	#txoutputs .row > .col-xs-1:last-child,
+	#txinputs .row > .col-xs-1:last-child {
+		flex: 0 0 34px;
+		padding: 0;
+	}
+
+	#txoutputs .row .form-control,
+	#txinputs .row .form-control {
+		padding-left: 6px;
+		padding-right: 6px;
+	}
+
+	.addressAdd,
+	.pubkeyAdd,
+	.pubkeyRemove,
+	.addressRemove,
+	.addressRemoveTo,
+	.addressAddTo,
+	.txidAdd,
+	.txidRemove,
+	.txidClear {
+		flex: none;
+		margin-left: 0 !important;
+	}
+}

@@ -1,0 +1,16 @@
+{
+	"name": "Qubitcoin Web Wallet",
+	"short_name": "Qubitcoin",
+	"description": "A Quantum-Enhanced Qubitcoin Wallet written in Javascript. Supports MultiSig, SegWit, Custom Transactions, nLockTime and more!",
+	"lang": "en",
+	"start_url": "./",
+	"scope": "./",
+	"display": "standalone",
+	"background_color": "#0a0a0a",
+	"theme_color": "#0f0f0f",
+	"icons": [
+		{ "src": "images/icon-192.png", "sizes": "192x192", "type": "image/png" },
+		{ "src": "images/icon-512.png", "sizes": "512x512", "type": "image/png" },
+		{ "src": "images/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+	]
+}
